@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Place an Order - Turner's Treats</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <i class="bx bx-menu" id="menu-icon"></i>
+      <a href="#" class="businessName">Turner's Treats</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="products.html">Products</a>
+        <a href="order.html" class="active">Order</a>
+        <a href="blog.html">Blog</a>
+      </nav>
+    </header>
+
+    <section class="order" id="order">
+      <div class="order-container">
+        <div class="order-form">
+          <h2 class="heading">Place an Order</h2>
+          <form action="#">
+            <div class="input-box">
+              <input type="text" placeholder="Full Name" required />
+              <input type="email" placeholder="Email Address" required />
+            </div>
+            <div class="input-box">
+              <input type="tel" placeholder="Mobile Number" required />
+              <input type="text" placeholder="Email Subject" />
+            </div>
+            <div class="input-box">
+              <select name="product" required>
+                <option value="cake">Select Item from List</option>
+                <option value="cake">Custom Cake</option>
+                <option value="pastry">Artisanal Pastry</option>
+                <option value="bread">Fresh Bread</option>
+              </select>
+              <input type="number" placeholder="Quantity" min="0" required />
+            </div>
+            <textarea
+              name="message"
+              cols="30"
+              rows="10"
+              placeholder="Special Instructions"
+            ></textarea>
+            <input type="submit" value="Submit Order" class="btn" />
+          </form>
+        </div>
+        <!-- Info Section -->
+        <div class="order-info">
+          <h3>INFO</h3>
+          <ul>
+            <li>Please pre-order your cake 3 days prior to pick up.</li>
+            <li>
+              For same day requests please call <strong>0412345678</strong></a>.
+            </li>
+            <li>
+              Please pick up within business hours unless pre-organized with us.
+            </li>
+          </ul>
+          <h3>CAKES</h3>
+          <ul>
+            <li>Handle cakes with care on pick up.</li>
+            <li>
+              We recommend your cake is eaten at room temperature and consumed
+              within 2 days.
+            </li>
+            <li>Refrigerate your cake if not eaten on the day of pick up.</li>
+            <li>Cakes can be frozen for up to 4 weeks.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-text">
+        <p>&copy; 2024 Turner's Treats | Designed by Anush De Costa</p>
+      </div>
+    </footer>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
