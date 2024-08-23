@@ -1,3 +1,8 @@
+/* Apply the handwriting font to the entire page, including list items */
+body, h2, h3, p, a, input, select, textarea, .btn, .businessName, li {
+    font-family: 'Caveat', cursive;
+}
+
 /* Reset some default browser styles */
 * {
     margin: 0;
@@ -11,8 +16,9 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f9f9f9;
-    padding-top: 70px; /* Space for fixed header */
-    min-height: 100vh; /* Ensure the body is at least the height of the viewport */
+    padding-top: 70px; 
+    min-height: 100vh; 
+    font-size: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -28,6 +34,17 @@ body {
     display: flex;
     align-items: center;
     z-index: 1000;
+    font-size: 150%;
+}
+
+/* Keyframes for up-and-down animation */
+@keyframes moveUpDown {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 /* The businessName and nav placement */
@@ -36,8 +53,10 @@ body {
     font-weight: bold;
     text-decoration: none;
     color: #fff;
-    margin-left: 25px; 
+    margin-left: 25px;
+    font-size: 200%; 
 }
+
 
 /* Make the nav visible on hover */
 .header:hover .nav,
@@ -67,7 +86,7 @@ body {
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 10px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ;
 }
 
 .nav a:hover,
@@ -79,6 +98,13 @@ body {
 #menu-icon {
     font-size: 30px;
     cursor: pointer;
+    display: inline-block;
+    transition: transform 0.3s, color 0.3s;
+}
+
+#menu-icon:hover {
+    transform: scale(1.2); 
+    color: #ff6347; 
 }
 
 /* Show nav when active */
@@ -93,35 +119,47 @@ body {
     align-items: center;
     padding: 40px 20px;
     background-color: #ffebcd;
-    flex: 1; /* Ensure home section fills available space */
+    flex: 1; 
 }
 
 .home-content {
     flex: 1;
-    padding-right: 20px;
+    padding-right: 50px;
 }
 
 .home h3 {
-    font-size: 28px;
+    font-size: 35px;
     margin-bottom: 10px;
 }
 
 .home p {
-    font-size: 18px;
+    font-size: 25px;
     margin-bottom: 20px;
 }
 
 .home .social-media a {
     color: #333;
-    font-size: 24px;
+    font-size: 45px;
     margin-right: 15px;
     text-decoration: none;
 }
+
+.social-media a {
+    display: inline-block;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.social-media a:hover {
+    transform: scale(1.2) rotate(360deg); /* Makes the icon grow slightly */
+    color: #ff4500; /* Change the color when hovered */
+}
+
 
 .home .home-img img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+    animation: moveUpDown 2s ease-in-out infinite;
 }
 
 /* About section styles */
@@ -137,6 +175,7 @@ body {
     max-width: 350%;
     height: auto;
     border-radius: 10px;
+    animation: moveUpDown 2s ease-in-out infinite;
 }
 
 .about-content {
@@ -148,39 +187,41 @@ body {
 
 .heading {
     text-align: left;
-    font-size: 32px;
+    font-size: 45px;
     margin-bottom: 20px;
     color: #ff6347;
 }
 
 .about-content h3 {
     text-align: left;
-    font-size: 24px;
+    font-size: 35px;
     margin-bottom: 10px;
 }
 
 .about-content p {
-    font-size: 18px;
+    font-size: 25px;
     margin-bottom: 20px;
 }
 
 .about-content .btn {
+    font-size: 30px;
     padding: 10px 20px;
     background-color: #ff6347;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s, transform 0.3s;
     width: 200px;
 }
 
 .about-content .btn:hover {
     background-color: #e55337;
+    transform: translateY(-10px);
 }
 
 /* Products section styles */
 .products {
-    padding: 40px 20px;
+    padding: 20px 20px;
     background-color: #f4f4f4;
     flex: 1; /* Ensure products section fills available space */
 }
@@ -205,15 +246,16 @@ body {
     height: auto;
     border-radius: 10px;
     margin-bottom: 15px;
+    animation: moveUpDown 2s ease-in-out infinite;
 }
 
 .product-box h3 {
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 10px;
 }
 
 .product-box p {
-    font-size: 16px;
+    font-size: 20px;
     margin-bottom: 15px;
 }
 
@@ -223,11 +265,13 @@ body {
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 30px;
 }
 
 .product-box .btn:hover {
     background-color: #e55337;
+    transform: translateY(-10px);
 }
 
 /* Order section styles */
@@ -237,12 +281,12 @@ body {
     align-items: flex-start;
     padding: 40px 20px;
     background-color: #f4f4f4;
-    flex: 1; /* Ensure order section fills available space */
+    flex: 1; 
 }
 
 .order-container {
     display: flex;
-    max-width: 1200px; 
+    max-width: 1000px; 
     width: 100%;
     gap: 60px;
     background-color: #fff;
@@ -250,6 +294,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     flex: 1;
+    margin: auto;
 }
 
 .order-form {
@@ -261,7 +306,7 @@ body {
 }
 
 .order .heading {
-    font-size: 32px;
+    font-size: 35px;
     color: #333;
     margin-bottom: 20px;
 }
@@ -280,7 +325,7 @@ textarea {
     padding: 15px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 textarea {
@@ -295,15 +340,16 @@ textarea {
     border-radius: 5px;
     text-align: center;
     display: block;
-    font-size: 18px;
+    font-size: 30px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s, transform 0.3s;
     margin-top: 10px;
 }
 
 .btn:hover {
     background-color: #e55337;
+    transform: translateY(-10px);
 }
 
 /* Info Section Styles */
@@ -319,7 +365,7 @@ textarea {
 }
 
 .order-info ul li {
-    font-size: 16px;
+    font-size: 25px;
     margin-bottom: 10px;
     max-width: 85%;
 }
@@ -385,7 +431,7 @@ textarea {
 }
 
 .blog-post-content h3 {
-    font-size: 24px;
+    font-size: 30px;
     margin-bottom: 10px;
     color: #ff6347;
 }
@@ -399,15 +445,17 @@ textarea {
 .blog-summary {
     max-height: 150px;
     overflow: hidden;
+    font-size: 25px;
 }
 
 .blog-full-content {
     display: none;
+    font-size: 25px;
 }
 
 .read-more {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 15px;
     color: #ff6347;
     text-decoration: none;
     cursor: pointer;
@@ -417,10 +465,116 @@ textarea {
     text-decoration: underline;
 }
 
+/* Slideshow adjustments */
 .slides {
     width: 750px;
     height: auto;
     border-radius: 10px;
     margin: auto;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    color: #333;
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+}
+
+/* Button Group for Yes and No Buttons */
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+/* Modal buttons */
+.modal .btn {
+    padding: 10px 20px;
+    background-color: #ff6347;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    margin-top: 20px; 
+}
+
+.modal .btn:hover {
+    background-color: #e55337;
+}
+
+/* Confirmation Modal styles */
+.modal {
+    display: none;
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+/* Tooltip Styles */
+.tooltip {
+    position: absolute;
+    top: 50px; 
+    left: 20px; 
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 1001;
+    display: none;
+    pointer-events: none;
+    opacity: 0;
+    border: 2px solid #ff6347;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Tooltip arrow pointing to the menu icon */
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: -25px; 
+    left: 7px; 
+    margin-left: -5px; /* Offset to align the arrow with the tooltip */
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #ff6347 transparent; 
+}
+
+.tooltip.show {
+    display: block;
+    opacity: 1;
 }
 

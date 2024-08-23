@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place an Order - Turner's Treats</title>
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
     <header class="header">
@@ -29,29 +27,23 @@
           <h2 class="heading">Place an Order</h2>
           <form action="#">
             <div class="input-box">
-              <input type="text" placeholder="Full Name" required />
-              <input type="email" placeholder="Email Address" required />
+              <input type="text" placeholder="Full Name" required>
+              <input type="email" placeholder="Email Address" required>
             </div>
             <div class="input-box">
-              <input type="tel" placeholder="Mobile Number" required />
-              <input type="text" placeholder="Email Subject" />
+              <input type="tel" placeholder="Mobile Number" required>
             </div>
             <div class="input-box">
               <select name="product" required>
-                <option value="cake">Select Item from List</option>
+                <option value="">Select Item from List</option>
                 <option value="cake">Custom Cake</option>
                 <option value="pastry">Artisanal Pastry</option>
                 <option value="bread">Fresh Bread</option>
               </select>
-              <input type="number" placeholder="Quantity" min="0" required />
+              <input type="number" placeholder="Quantity" min="0" required>
             </div>
-            <textarea
-              name="message"
-              cols="30"
-              rows="10"
-              placeholder="Special Instructions"
-            ></textarea>
-            <input type="submit" value="Submit Order" class="btn" />
+            <textarea name="message" cols="30" rows="10" placeholder="Special Instructions"></textarea>
+            <input type="submit" value="Submit Order" class="btn">
           </form>
         </div>
         <!-- Info Section -->
@@ -60,12 +52,15 @@
           <ul>
             <li>Please pre-order your cake 3 days prior to pick up.</li>
             <li>
-              For same day requests please call <strong>0412345678</strong></a>.
+              For same day requests please call <strong>0412345678</strong>.
             </li>
             <li>
-              Please pick up within business hours unless pre-organized with us.
+              Please pick up within business hours (8.00am - 5.00pm) unless
+              pre-organized with us.
             </li>
           </ul>
+          <br>
+          <br>
           <h3>CAKES</h3>
           <ul>
             <li>Handle cakes with care on pick up.</li>
@@ -80,11 +75,39 @@
       </div>
     </section>
 
+    <!-- Modal for Auto-fill Confirmation -->
+    <div id="autoFillModal" class="modal">
+      <div class="modal-content">
+        <h3>Note for Teaching Team.</h3>
+        <p>This is temporary!</p>
+        <br>
+        <p>
+          For your ease, would you like to auto-fill the form with "pre-filled"
+          details?
+        </p>
+        <div class="button-group">
+          <button id="confirmAutoFill" class="btn">Yes</button>
+          <button id="cancelAutoFill" class="btn">No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+      <div class="modal-content">
+        <p>Order has been successfully submitted! Thank you.</p>
+        <button id="closeConfirmation" class="btn">OK</button>
+      </div>
+    </div>
+
     <footer class="footer">
       <div class="footer-text">
         <p>&copy; 2024 Turner's Treats | Designed by Anush De Costa</p>
       </div>
     </footer>
+    <div id="menuTooltip" class="tooltip">
+      <span>Click here to open the menu!</span>
+    </div>
     <script src="js/scripts.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-// Order Form Validation
+// Order Form Validation and Submission
 document.addEventListener('DOMContentLoaded', function () {
     const orderForm = document.querySelector('form[action="#"]');
 
@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const fullName = orderForm.querySelector('input[placeholder="Full Name"]');
             const email = orderForm.querySelector('input[placeholder="Email Address"]');
             const quantity = orderForm.querySelector('input[placeholder="Quantity"]');
+            const product = orderForm.querySelector('select[name="product"]');
+            const message = orderForm.querySelector('textarea[name="message"]');
 
             let isValid = true;
             let errorMessage = '';
@@ -21,48 +23,37 @@ document.addEventListener('DOMContentLoaded', function () {
                 errorMessage += 'Valid Email Address is required.\n';
             }
 
-            if (quantity.value < 0) {
+            if (quantity.value <= 0) {
                 isValid = false;
-                errorMessage += 'Quantity cannot be negative.\n';
+                errorMessage += 'Quantity must be greater than zero.\n';
             }
 
             if (!isValid) {
                 e.preventDefault();
                 alert(errorMessage);
-            }
-        });
-    }
+            } else {
+                e.preventDefault(); // Prevent default form submission
 
-    // Contact Form Validation
-    const contactForm = document.querySelector('form[action="#"]:not(.order-form)');
+                // Create an order object
+                const order = {
+                    fullName: fullName.value.trim(),
+                    email: email.value.trim(),
+                    product: product.value,
+                    quantity: quantity.value,
+                    message: message.value.trim()
+                };
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-            const fullName = contactForm.querySelector('input[placeholder="Full Name"]');
-            const email = contactForm.querySelector('input[placeholder="Email Address"]');
-            const message = contactForm.querySelector('textarea[placeholder="Your Message"]');
+                // Save the order to localStorage
+                let orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
 
-            let isValid = true;
-            let errorMessage = '';
+                // Display the custom confirmation modal
+                const confirmationModal = document.getElementById("confirmationModal");
+                confirmationModal.style.display = "block";
 
-            if (fullName.value.trim() === '') {
-                isValid = false;
-                errorMessage += 'Full Name is required.\n';
-            }
-
-            if (email.value.trim() === '' || !validateEmail(email.value)) {
-                isValid = false;
-                errorMessage += 'Valid Email Address is required.\n';
-            }
-
-            if (message.value.trim() === '') {
-                isValid = false;
-                errorMessage += 'Message cannot be empty.\n';
-            }
-
-            if (!isValid) {
-                e.preventDefault();
-                alert(errorMessage);
+                // Reset the form
+                orderForm.reset();
             }
         });
     }
@@ -72,10 +63,26 @@ document.addEventListener('DOMContentLoaded', function () {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
+
+    // Close the confirmation modal when "OK" is clicked
+    const closeConfirmation = document.getElementById("closeConfirmation");
+    if (closeConfirmation) {
+        closeConfirmation.addEventListener('click', function () {
+            const confirmationModal = document.getElementById("confirmationModal");
+            confirmationModal.style.display = "none";
+
+            // After the confirmation modal is closed, prompt the user to view the Order Sheet
+            setTimeout(() => {
+                if (confirm("Order has been successfully submitted! Would you like to view the Order Sheet?")) {
+                    window.open('ordersheet.html', '_blank');
+                }
+            }, 100);
+        });
+    }
 });
 
+// Slideshow functionality
 document.addEventListener('DOMContentLoaded', function () {
-    // Select all slideshow containers
     const slideshows = document.querySelectorAll('.slideshow-container');
 
     slideshows.forEach((slideshow, index) => {
@@ -87,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
         slides[currentSlide].style.display = 'block';
 
         // Different timing for each slideshow
-        let timing = 3000 + (index * 500); 
+        let timing = 2500 + (index * 500); 
 
         // Function to show the next slide
         function showNextSlide() {
@@ -101,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 slides[currentSlide].classList.remove('fade-out');
 
                 // Move to the next slide
-                currentSlide = (currentSlide + 2) % slides.length;
+                currentSlide = (currentSlide + 1) % slides.length;
 
                 // Show and fade in the next slide
                 slides[currentSlide].style.display = 'block';
@@ -114,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Navigation Menu Toggle
 document.addEventListener('DOMContentLoaded', function () {
     const menuIcon = document.getElementById('menu-icon');
     const nav = document.querySelector('.nav');
@@ -153,3 +161,112 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Auto-Fill Functionality
+document.addEventListener('DOMContentLoaded', function () {
+    const orderForm = document.querySelector('form[action="#"]');
+    const fullNameField = orderForm.querySelector('input[placeholder="Full Name"]');
+    const modal = document.getElementById("autoFillModal");
+    const confirmBtn = document.getElementById("confirmAutoFill");
+    const cancelBtn = document.getElementById("cancelAutoFill");
+    const confirmationModal = document.getElementById("confirmationModal");
+    const closeConfirmation = document.getElementById("closeConfirmation");
+
+    let autoFillPromptShown = false; // Track if the autofill prompt has been shown
+
+    // Function to generate random Australian-like phone number
+    function getRandomPhoneNumber() {
+        const prefix = ["041", "042", "043", "044"];
+        const randomPrefix = prefix[Math.floor(Math.random() * prefix.length)];
+        const randomNumber = Math.floor(1000000 + Math.random() * 9000000);
+        return `${randomPrefix}${randomNumber}`;
+    }
+
+    // Random data generator function with Latin paragraphs
+    function getRandomData() {
+        const names = ['John Doe', 'Jane Smith', 'Alex Johnson'];
+        const emails = ['john@example.com', 'jane@example.com', 'alex@example.com'];
+        const products = ['cake', 'pastry', 'bread'];
+        const quantities = [1, 2, 3];
+        const phoneNumber = getRandomPhoneNumber();
+        const message = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+
+        return {
+            name: names[Math.floor(Math.random() * names.length)],
+            email: emails[Math.floor(Math.random() * emails.length)],
+            product: products[Math.floor(Math.random() * products.length)],
+            quantity: quantities[Math.floor(Math.random() * quantities.length)],
+            phone: phoneNumber,
+            message: message
+        };
+    }
+
+    // Show the modal when Full Name field is focused for the first time
+    fullNameField.addEventListener('focus', function () {
+        if (!autoFillPromptShown) {
+            modal.style.display = "block";
+            autoFillPromptShown = true; // Ensure the modal is only shown once
+        }
+    });
+
+    // When the user clicks on the "Yes" button, auto-fill the form
+    confirmBtn.addEventListener('click', function () {
+        const randomData = getRandomData();
+        orderForm.querySelector('input[placeholder="Full Name"]').value = randomData.name;
+        orderForm.querySelector('input[placeholder="Email Address"]').value = randomData.email;
+        orderForm.querySelector('input[placeholder="Mobile Number"]').value = randomData.phone;
+        orderForm.querySelector('select[name="product"]').value = randomData.product;
+        orderForm.querySelector('input[placeholder="Quantity"]').value = randomData.quantity;
+        orderForm.querySelector('textarea[name="message"]').value = randomData.message;
+
+        modal.style.display = "none";
+    });
+
+    // When the user clicks on the "No" button, close the modal
+    cancelBtn.addEventListener('click', function () {
+        modal.style.display = "none";
+    });
+
+    // Close the modal when clicking outside of it
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const tooltip = document.getElementById('menuTooltip');
+    const menuIcon = document.getElementById('menu-icon');
+
+    // Check if the tooltip should be shown on page load
+    const shouldShowTooltip = !sessionStorage.getItem('menuTooltipDismissed');
+    if (shouldShowTooltip) {
+        // Position the tooltip near the menu icon
+        const rect = menuIcon.getBoundingClientRect();
+        tooltip.style.top = `${rect.bottom + 12}px`; // 10px below the menu icon
+        tooltip.style.left = `${rect.left}px`;
+
+        // Show the tooltip
+        tooltip.classList.add('show');
+
+        // Function to hide the tooltip
+        const dismissTooltip = () => {
+            tooltip.classList.remove('show');
+            sessionStorage.setItem('menuTooltipDismissed', 'true'); // Store dismissal in sessionStorage
+        };
+
+        // Hide the tooltip when the user clicks or hovers over the menu icon
+        menuIcon.addEventListener('click', dismissTooltip);
+        menuIcon.addEventListener('mouseover', dismissTooltip);
+
+        // Hide the tooltip after 10 seconds if no interaction
+        setTimeout(function () {
+            if (tooltip.classList.contains('show')) {
+                dismissTooltip();
+            }
+        }, 4000);
+    }
+
+    // Clear the dismissal status on page load so that the tooltip shows again on refresh
+    sessionStorage.removeItem('menuTooltipDismissed');
+});
