@@ -6,15 +6,16 @@
 Turner's Treats is a responsive web application for a fictional bakery specializing in artisanal baked goods such as cookies, bread, and cupcakes. The website allows users to explore products, browse a gallery of baked goods, read blog posts about baking, and place orders through an intuitive interface.
 
 ## Features
-- **Responsive Design**: The website adapts seamlessly across devices, providing an optimal user experience on desktops, tablets, and smartphones.
-- **Dynamic Navigation**: A hidden navigation menu that becomes accessible upon hovering over the menu icon, maintaining a clean and user-friendly interface.
-- **Product Showcase**: The products page features an interactive slideshow for different categories like cakes, pastries, and bread.
-- **Gallery Page**: A gallery page showcases various baked goods in a 3x3 grid format, with the ability to navigate between different categories (cakes, pastries, bread) using a hover-based carousel navigation system.
+
+- **Responsive Design**: The website adapts seamlessly across devices, providing an optimal user experience on desktops, tablets, and smartphones. The layout dynamically adjusts to different screen sizes, ensuring that images resize appropriately and content remains accessible. Specific sections, like the Home and About pages, are restructured for better readability on smaller screens, and the gallery adjusts to provide a consistent visual experience.
+- **Dynamic Navigation**: A hidden navigation menu becomes accessible upon hovering over the menu icon, keeping the interface clean and user-friendly. The navigation menu is also responsive, adapting to various screen sizes for optimal usability.
+- **Product Showcase**: The products page features an interactive slideshow that dynamically rotates images of different baked goods, enhancing the visual appeal.
 - **Blog Section**: Expandable blog posts with engaging content about baking recipes. Users can click "Read More" to view the entire post.
 - **Order Form**: A fully functional order form with real-time validation, allowing users to place orders directly through the site.
-- **Ordersheet**: An interactive order sheet displaying all submitted orders, pulled dynamically from local storage.
-- **JavaScript Interactivity**: Enhanced user experience through JavaScript features such as form validation, image slideshows, gallery animations, and dynamic navigation.
-- **Consistent Footer**: The footer is consistently present across all pages, providing quick navigation and contact information.
+- **JavaScript Interactivity**: Enhanced user experience through JavaScript features such as form validation, image slideshows, and dynamic navigation.
+- **Adapted Layout for Smaller Screens**: On screens smaller than 1920px, images are resized, and the layout is adjusted to enhance user experience. For example, images are centered and reduced in size, and content blocks are stacked vertically to maintain a clear and accessible layout.
+- **Media Query Enhancements**: The website uses media queries to ensure that styles are tailored to different devices and screen resolutions. This includes resizing text, images, and buttons, and adjusting the layout for improved usability on devices like phones, tablets, and smaller laptop screens.
+- **Consistent Footer**: The footer is consistently present across all pages, providing quick navigation back to the top.
 
 ## Instructions for Navigation
 1. **Home Page (index.html)**: The landing page introduces users to Turner's Treats with links to other sections of the site.
