@@ -13,21 +13,25 @@ document.addEventListener('DOMContentLoaded', function () {
             let isValid = true;
             let errorMessage = '';
 
+            // Validate Full Name
             if (fullName.value.trim() === '') {
                 isValid = false;
                 errorMessage += 'Full Name is required.\n';
             }
 
+            // Validate Email
             if (email.value.trim() === '' || !validateEmail(email.value)) {
                 isValid = false;
                 errorMessage += 'Valid Email Address is required.\n';
             }
 
+            // Validate Quantity
             if (quantity.value <= 0) {
                 isValid = false;
                 errorMessage += 'Quantity must be greater than zero.\n';
             }
 
+            // Show error messages if validation fails
             if (!isValid) {
                 e.preventDefault();
                 alert(errorMessage);
@@ -71,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const confirmationModal = document.getElementById("confirmationModal");
             confirmationModal.style.display = "none";
 
-            // After the confirmation modal is closed, prompt the user to view the Order Sheet
+            // Prompt the user to view the Order Sheet
             setTimeout(() => {
                 if (confirm("Order has been successfully submitted! Would you like to view the Order Sheet?")) {
                     window.open('ordersheet.html', '_blank');
@@ -79,6 +83,55 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 100);
         });
     }
+
+    // Image change functionality based on product selection
+    const productSelect = document.getElementById('product-select');
+    const productImage = document.getElementById('product-image');
+
+    // Object mapping product values to image sources and alt text
+    const productImages = {
+        'select': { src: 'images/orders.jpg', alt: 'Custom Birthday Cake' },
+        'birthday-cake': { src: 'images/Cake_Birthday3.png', alt: 'Custom Birthday Cake' },
+        'wedding-cake': { src: 'images/Cake_Wedding1.png', alt: 'Elegant Wedding Cake' },
+        'pastry': { src: 'images/Pastry_2.png', alt: 'Artisanal Pastry' },
+        'bread': { src: 'images/Bread_3.png', alt: 'Fresh Bread' }
+    };
+
+    // Function to update the image with a fade effect
+    function updateImage() {
+        const selectedProduct = productSelect.value;
+
+        // Apply fade-out effect
+        productImage.classList.add('fade-out');
+
+        // Wait for the fade-out to complete before changing the image
+        setTimeout(() => {
+            if (productImages[selectedProduct]) {
+                productImage.src = productImages[selectedProduct].src;
+                productImage.alt = productImages[selectedProduct].alt;
+            } else {
+                // Default image if no valid product is selected
+                productImage.src = 'images/default.jpg';
+                productImage.alt = 'Order Image';
+            }
+
+            // Apply fade-in effect after the image source changes
+            productImage.classList.remove('fade-out');
+            productImage.classList.add('fade-in');
+
+            // Remove fade-in class after animation completes
+            setTimeout(() => {
+                productImage.classList.remove('fade-in');
+            }, 500); // Duration should match the CSS animation time
+
+        }, 500); // Duration of the fade-out effect in milliseconds
+    }
+
+    // Event listener for dropdown menu change
+    productSelect.addEventListener('change', updateImage);
+
+    // Ensure initial image state reflects the current selection
+    updateImage();
 });
 
 // Slideshow functionality
@@ -94,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
         slides[currentSlide].style.display = 'block';
 
         // Different timing for each slideshow
-        let timing = 2500 + (index * 500); 
+        let timing = 2500 + (index * 500);
 
         // Function to show the next slide
         function showNextSlide() {
@@ -168,10 +221,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById("autoFillModal");
     const confirmBtn = document.getElementById("confirmAutoFill");
     const cancelBtn = document.getElementById("cancelAutoFill");
-    const confirmationModal = document.getElementById("confirmationModal");
-    const closeConfirmation = document.getElementById("closeConfirmation");
 
-    let autoFillPromptShown = false; // Track if the autofill prompt has been shown
+    let autoFillPromptShown = false;
 
     // Function to generate random Australian-like phone number
     function getRandomPhoneNumber() {
@@ -185,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function getRandomData() {
         const names = ['John Doe', 'Jane Smith', 'Alex Johnson'];
         const emails = ['john@example.com', 'jane@example.com', 'alex@example.com'];
-        const products = ['cake', 'pastry', 'bread'];
+        const products = ['birthday-cake', 'wedding-cake', 'pastry', 'bread'];
         const quantities = [1, 2, 3];
         const phoneNumber = getRandomPhoneNumber();
         const message = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
@@ -204,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fullNameField.addEventListener('focus', function () {
         if (!autoFillPromptShown) {
             modal.style.display = "block";
-            autoFillPromptShown = true; // Ensure the modal is only shown once
+            autoFillPromptShown = true;
         }
     });
 
@@ -214,9 +265,14 @@ document.addEventListener('DOMContentLoaded', function () {
         orderForm.querySelector('input[placeholder="Full Name"]').value = randomData.name;
         orderForm.querySelector('input[placeholder="Email Address"]').value = randomData.email;
         orderForm.querySelector('input[placeholder="Mobile Number"]').value = randomData.phone;
-        orderForm.querySelector('select[name="product"]').value = randomData.product;
+        const productDropdown = orderForm.querySelector('select[name="product"]');
+        productDropdown.value = randomData.product;
         orderForm.querySelector('input[placeholder="Quantity"]').value = randomData.quantity;
         orderForm.querySelector('textarea[name="message"]').value = randomData.message;
+
+        // Manually trigger change event to update the image
+        const event = new Event('change');
+        productDropdown.dispatchEvent(event);
 
         modal.style.display = "none";
     });
@@ -234,6 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Tooltip for Menu Icon
 document.addEventListener('DOMContentLoaded', function () {
     const tooltip = document.getElementById('menuTooltip');
     const menuIcon = document.getElementById('menu-icon');
@@ -243,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (shouldShowTooltip) {
         // Position the tooltip near the menu icon
         const rect = menuIcon.getBoundingClientRect();
-        tooltip.style.top = `${rect.bottom + 12}px`; // 10px below the menu icon
+        tooltip.style.top = `${rect.bottom + 12}px`;
         tooltip.style.left = `${rect.left}px`;
 
         // Show the tooltip
@@ -252,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Function to hide the tooltip
         const dismissTooltip = () => {
             tooltip.classList.remove('show');
-            sessionStorage.setItem('menuTooltipDismissed', 'true'); // Store dismissal in sessionStorage
+            sessionStorage.setItem('menuTooltipDismissed', 'true');
         };
 
         // Hide the tooltip when the user clicks or hovers over the menu icon
@@ -269,4 +326,66 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Clear the dismissal status on page load so that the tooltip shows again on refresh
     sessionStorage.removeItem('menuTooltipDismissed');
+});
+
+// 3D Carousel Gallery with Infinite ScrollTrigger
+document.addEventListener('DOMContentLoaded', function () {
+    const galleryBoxOuter = document.querySelector('.gallery_box_outer');
+    const images = document.querySelectorAll('.gallery_box_in');
+
+    if (galleryBoxOuter) {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".gallery_box",
+                start: "top center-=200px",
+                end: "bottom+=3000px center-=200px",
+                scrub: true,
+                pin: true,
+                onUpdate: self => {
+                    const progress = self.progress.toFixed(5);
+                    const rotation = progress * 360 * 5;
+                    gsap.set(galleryBoxOuter, { rotateY: rotation });
+
+                    // Variable to track the image closest to the center front
+                    let closestImageIndex = -1;
+                    let closestDistance = 360; // Max possible distance
+
+                    images.forEach((image, index) => {
+                        const normalizedRotation = (index * 25.71 + rotation) % 360;
+
+                        // Calculate the distance from the front-center (180 degrees)
+                        const distanceFromFront = Math.abs(normalizedRotation - 180);
+
+                        // Track the closest image to the front-center
+                        if (distanceFromFront < closestDistance) {
+                            closestDistance = distanceFromFront;
+                            closestImageIndex = index;
+                        }
+
+                        // Determine opacity based on distance from the front
+                        let opacity;
+                        let scale; // Variable to adjust scale
+
+                        if (distanceFromFront < 20) {
+                            opacity = 1;  // Full opacity for the center front image
+                        } else if (distanceFromFront < 60) {
+                            opacity = 0.8;  // 80% opacity for images close to the front
+                        } else {
+                            opacity = Math.max(0.05, 1 - (distanceFromFront / 180));  // Gradually fade for the rest
+                        }
+
+                        image.style.opacity = opacity;
+                        image.style.transform = `rotateY(${index * 25.71}deg) translateZ(1450px) scale(1)`;
+                    });
+
+                    // Apply scaling to the closest image to the front-center
+                    if (closestImageIndex !== -1) {
+                        images[closestImageIndex].style.transform = `rotateY(${closestImageIndex * 25.71}deg) translateZ(1450px) scale(1.5)`;
+                    }
+                }
+            }
+        });
+    }
 });
