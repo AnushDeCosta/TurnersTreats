@@ -1,35 +1,45 @@
 # Turner's Treats Website
 
+![home](https://github.com/user-attachments/assets/ab174a86-1ca9-4f68-afa5-ef3117b3eb68)
+
 ## Overview
-Turner's Treats is a responsive web application designed for a fictional bakery specializing in artisanal baked goods, including cookies, bread, and cupcakes. The website allows users to explore products, read blog posts about baking, and place orders directly through an intuitive and interactive interface.
+Turner's Treats is a responsive web application for a fictional bakery specializing in artisanal baked goods such as cookies, bread, and cupcakes. The website allows users to explore products, browse a gallery of baked goods, read blog posts about baking, and place orders through an intuitive interface.
 
 ## Features
 - **Responsive Design**: The website adapts seamlessly across devices, providing an optimal user experience on desktops, tablets, and smartphones.
-- **Dynamic Navigation**: A hidden navigation menu that becomes accessible upon hovering over the menu icon, keeping the interface clean and user-friendly.
-- **Product Showcase**: The products page features an interactive slideshow that dynamically rotates images of different baked goods, enhancing the visual appeal.
+- **Dynamic Navigation**: A hidden navigation menu that becomes accessible upon hovering over the menu icon, maintaining a clean and user-friendly interface.
+- **Product Showcase**: The products page features an interactive slideshow for different categories like cakes, pastries, and bread.
+- **Gallery Page**: A gallery page showcases various baked goods in a 3x3 grid format, with the ability to navigate between different categories (cakes, pastries, bread) using a hover-based carousel navigation system.
 - **Blog Section**: Expandable blog posts with engaging content about baking recipes. Users can click "Read More" to view the entire post.
 - **Order Form**: A fully functional order form with real-time validation, allowing users to place orders directly through the site.
-- **JavaScript Interactivity**: Enhanced user experience through JavaScript features such as form validation, image slideshows, and dynamic navigation.
-- **Consistent Footer**: The footer is consistently present across all pages, providing quick navigation back to the top.
+- **Ordersheet**: An interactive order sheet displaying all submitted orders, pulled dynamically from local storage.
+- **JavaScript Interactivity**: Enhanced user experience through JavaScript features such as form validation, image slideshows, gallery animations, and dynamic navigation.
+- **Consistent Footer**: The footer is consistently present across all pages, providing quick navigation and contact information.
 
 ## Instructions for Navigation
 1. **Home Page (index.html)**: The landing page introduces users to Turner's Treats with links to other sections of the site.
-   - Use the navigation menu to access different pages: About, Products, Blog, and Order.
+   - Use the navigation menu to access different pages: About, Products, Gallery, Blog, and Order.
    - Explore featured content and images showcasing the bakery’s offerings.
    
 2. **About Page (about.html)**: Provides background information on Turner's Treats, including the bakery’s history and mission.
-   - Click "Read More" on this page to be taken to the Blog section.
+   - Click "Check our Blog" to be taken to the Blog section.
 
-3. **Products Page (products.html)**: Displays a categorized list of baked goods with interactive slideshows for each category (e.g., cakes, pastries).
-   - Users can view different images of products by allowing the slideshow to rotate or by clicking the slideshow arrows.
+3. **Products Page (products.html)**: Displays a categorized list of baked goods with interactive slideshows for each category (e.g., cakes, pastries, bread).
+   - Users can view different images of products through an automatic or manual slideshow.
 
-4. **Blog Page (blog.html)**: Contains blog posts about various baking recipes.
+4. **Gallery Page (gallery.html)**: Features a gallery showcasing cakes, pastries, and bread in a 3x3 grid format.
+   - Users can navigate between categories using a hover-based carousel system.
+
+5. **Blog Page (blog.html)**: Contains blog posts about various baking recipes.
    - Each blog post initially shows a summary; click "Read More" to expand and view the full post.
-   - The image related to each post appears on the right side for a visually engaging layout.
+   - Images related to each post are displayed to enhance engagement.
 
-5. **Order Page (order.html)**: Allows users to place orders by filling out a form.
+6. **Order Page (order.html)**: Allows users to place orders by filling out a form.
    - Real-time form validation ensures correct and complete information is submitted.
    - Upon submission, the user receives confirmation that their order was successfully placed.
+
+7. **Ordersheet Page (ordersheet.html)**: Displays all orders submitted through the Order Page in a tabular format.
+   - Orders are dynamically loaded from local storage for easy review and management.
 
 ## Setup and Running the Web Application
 
@@ -51,7 +61,7 @@ Turner's Treats is a responsive web application designed for a fictional bakery 
    - Alternatively, right-click `index.html` and select "Open With" to choose your preferred browser.
 
 3. **Navigate the Website**:
-   - Use the navigation menu to explore different sections of the website: Home, About, Products, Blog, and Order.
+   - Use the navigation menu to explore different sections of the website: Home, About, Products, Gallery, Blog, and Order.
    - Each page is fully functional and provides a smooth user experience with interactive elements.
 
 4. **Modify or Customize**:
