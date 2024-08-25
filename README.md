@@ -3,19 +3,28 @@
 ![home](https://github.com/user-attachments/assets/ab174a86-1ca9-4f68-afa5-ef3117b3eb68)
 
 ## Overview
-Turner's Treats is a responsive web application for a fictional bakery specializing in artisanal baked goods such as cookies, bread, and cupcakes. The website allows users to explore products, browse a gallery of baked goods, read blog posts about baking, and place orders through an intuitive interface.
+Turner's Treats is a responsive web application for a fictional bakery specializing in artisanal baked goods such as cookies, bread, and cupcakes. The website allows users to explore products, browse a 3D carousel gallery of baked goods, read blog posts about baking, and place orders through an intuitive interface.
 
 ## Features
 
 - **Responsive Design**: The website adapts seamlessly across devices, providing an optimal user experience on desktops, tablets, and smartphones. The layout dynamically adjusts to different screen sizes, ensuring that images resize appropriately and content remains accessible. Specific sections, like the Home and About pages, are restructured for better readability on smaller screens, and the gallery adjusts to provide a consistent visual experience.
-- **Dynamic Navigation**: A hidden navigation menu becomes accessible upon hovering over the menu icon, keeping the interface clean and user-friendly. The navigation menu is also responsive, adapting to various screen sizes for optimal usability.
-- **Product Showcase**: The products page features an interactive slideshow that dynamically rotates images of different baked goods, enhancing the visual appeal.
-- **Blog Section**: Expandable blog posts with engaging content about baking recipes. Users can click "Read More" to view the entire post.
-- **Order Form**: A fully functional order form with real-time validation, allowing users to place orders directly through the site.
+  
+- **Dynamic Navigation**: A hidden navigation menu becomes accessible upon hovering over the header area, keeping the interface clean and user-friendly. The navigation menu is also responsive, adapting to various screen sizes for optimal usability.
+
+- **Product Showcase**: The products page features an interactive slideshow for different categories of baked goods (e.g., cakes, pastries, bread). Users can navigate through the images using buttons under each of the three image boxes, which also serve as links to different pages for more details.
+
+- **Blog Section**: The blog page contains expandable posts with engaging content about baking recipes. Users can click "Read More" to expand and view the full post or "Read Less" to collapse it back.
+
+- **Order Form**: A fully functional order form with real-time validation, allowing users to place orders directly through the site. Currently, the order information is stored client-side but is designed to be moved to a server-side database upon website deployment.
+
 - **JavaScript Interactivity**: Enhanced user experience through JavaScript features such as form validation, image slideshows, and dynamic navigation.
+
 - **Adapted Layout for Smaller Screens**: On screens smaller than 1920px, images are resized, and the layout is adjusted to enhance user experience. For example, images are centered and reduced in size, and content blocks are stacked vertically to maintain a clear and accessible layout.
+
 - **Media Query Enhancements**: The website uses media queries to ensure that styles are tailored to different devices and screen resolutions. This includes resizing text, images, and buttons, and adjusting the layout for improved usability on devices like phones, tablets, and smaller laptop screens.
-- **Consistent Footer**: The footer is consistently present across all pages, providing quick navigation back to the top.
+
+- **3D Carousel Gallery**: The gallery page features a 3D carousel, which users can interact with by scrolling. The carousel displays cakes, pastries, and bread in a rotating format that adds depth to the user experience.
+
 
 ## Instructions for Navigation
 1. **Home Page (index.html)**: The landing page introduces users to Turner's Treats with links to other sections of the site.
@@ -26,21 +35,19 @@ Turner's Treats is a responsive web application for a fictional bakery specializ
    - Click "Check our Blog" to be taken to the Blog section.
 
 3. **Products Page (products.html)**: Displays a categorized list of baked goods with interactive slideshows for each category (e.g., cakes, pastries, bread).
-   - Users can view different images of products through an automatic or manual slideshow.
+   - Users can view different images of products through an automatic or manual slideshow and use the navigation buttons to visit related pages.
 
-4. **Gallery Page (gallery.html)**: Features a gallery showcasing cakes, pastries, and bread in a 3x3 grid format.
-   - Users can navigate between categories using a hover-based carousel system.
+4. **Gallery Page (gallery.html)**: Features a 3D carousel gallery showcasing cakes, pastries, and bread. Users can interact with the gallery by scrolling to view different images in a rotating 3D format.
 
 5. **Blog Page (blog.html)**: Contains blog posts about various baking recipes.
-   - Each blog post initially shows a summary; click "Read More" to expand and view the full post.
-   - Images related to each post are displayed to enhance engagement.
+   - Each blog post initially shows a summary; click "Read More" to expand and view the full post, and "Read Less" to collapse it back.
 
 6. **Order Page (order.html)**: Allows users to place orders by filling out a form.
    - Real-time form validation ensures correct and complete information is submitted.
    - Upon submission, the user receives confirmation that their order was successfully placed.
 
 7. **Ordersheet Page (ordersheet.html)**: Displays all orders submitted through the Order Page in a tabular format.
-   - Orders are dynamically loaded from local storage for easy review and management.
+   - Orders are dynamically loaded from local storage for easy review and management. This page is ready to move to a server-side implementation upon deployment.
 
 ## Setup and Running the Web Application
 
