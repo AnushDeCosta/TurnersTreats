@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Sheet</title>
     <style>
+      /* For DEMO purposes: CSS is kept within HTML. 
+         Will be moved to an external stylesheet when moving to server-side. */
       body {
         font-family: Arial, sans-serif;
         padding: 20px;
@@ -12,6 +14,7 @@
       table {
         width: 100%;
         border-collapse: collapse;
+        margin-top: 20px;
       }
       th,
       td {
@@ -21,6 +24,18 @@
       }
       th {
         background-color: #f2f2f2;
+      }
+      .btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #f76c6c;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .btn:hover {
+        background-color: #f44336;
       }
     </style>
   </head>
@@ -33,29 +48,107 @@
           <th>Email Address</th>
           <th>Product</th>
           <th>Quantity</th>
+          <th>Price (Each)</th>
+          <th>Total Price</th>
           <th>Message</th>
         </tr>
       </thead>
       <tbody id="orderTableBody"></tbody>
     </table>
 
+    <button id="resetOrdersheet" class="btn">Reset Ordersheet</button>
+    <button id="downloadOrdersheet" class="btn">Download Ordersheet as CSV</button>
+
     <script>
+      /* For DEMO purposes: JavaScript is kept within HTML. 
+         Will be moved to an external JS file when moving to server-side. */
+
+      // Prices for each product
+      const productPrices = {
+        'chocolate-cake': 25.00,
+        'vanilla-cake': 20.00,
+        'red-velvet-cake': 30.00,
+        'lemon-cake': 22.00,
+        'croissant': 3.50,
+        'danish': 4.00,
+        'eclair': 4.50,
+        'baguette': 5.00,
+        'sourdough': 7.00,
+        'rye': 6.50,
+        'multigrain': 6.00,
+        // Add more products as needed
+      };
+
       // Load orders from localStorage
       const orders = JSON.parse(localStorage.getItem("orders")) || [];
       const orderTableBody = document.getElementById("orderTableBody");
 
       // Populate the table with orders
-      orders.forEach((order) => {
+      if (orders.length > 0) {
+        orders.forEach((order) => {
+          const row = document.createElement("tr");
+          const productPrice = productPrices[order.product] || 0;
+          const totalPrice = (productPrice * order.quantity).toFixed(2);
+          row.innerHTML = `
+              <td>${order.fullName}</td>
+              <td>${order.email}</td>
+              <td>${order.product}</td>
+              <td>${order.quantity}</td>
+              <td>$${productPrice.toFixed(2)}</td>
+              <td>$${totalPrice}</td>
+              <td>${order.message}</td>
+          `;
+          orderTableBody.appendChild(row);
+        });
+      } else {
         const row = document.createElement("tr");
-        row.innerHTML = `
-                <td>${order.fullName}</td>
-                <td>${order.email}</td>
-                <td>${order.product}</td>
-                <td>${order.quantity}</td>
-                <td>${order.message}</td>
-            `;
+        row.innerHTML = `<td colspan="7">No orders available.</td>`;
         orderTableBody.appendChild(row);
+      }
+
+      // Clear Ordersheet function
+      function clearOrdersheet() {
+        localStorage.removeItem('orders');
+        alert('Ordersheet has been reset.');
+        location.reload(); // Reload the page to reflect changes
+      }
+
+      // Attach the reset functionality to the button
+      document.getElementById('resetOrdersheet').addEventListener('click', function () {
+        clearOrdersheet();
       });
+
+      // Download Ordersheet as CSV function
+      function downloadOrdersheetAsCSV() {
+        if (orders.length === 0) {
+          alert('No orders available to download.');
+          return;
+        }
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "Full Name,Email Address,Product,Quantity,Price (Each),Total Price,Message\n"; // CSV header
+
+        orders.forEach(order => {
+          const productPrice = productPrices[order.product] || 0;
+          const totalPrice = (productPrice * order.quantity).toFixed(2);
+          const row = `${order.fullName},${order.email},${order.product},${order.quantity},$${productPrice.toFixed(2)},$${totalPrice},${order.message}`;
+          csvContent += row + "\n";
+        });
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "ordersheet.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      // Attach download functionality to the button
+      document.getElementById('downloadOrdersheet').addEventListener('click', function () {
+        downloadOrdersheetAsCSV();
+      });
+
     </script>
   </body>
 </html>

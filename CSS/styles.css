@@ -1,4 +1,4 @@
-/* Apply the handwriting font to the entire page */
+/* Apply the handwriting font to all elements */
 body,
 h2,
 h3,
@@ -13,14 +13,14 @@ li {
     font-family: 'Caveat', cursive;
 }
 
-/* Reset some default browser styles */
+/* Reset default browser styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body styles */
+/* General body styles */
 body {
     line-height: 1.6;
     color: #333;
@@ -57,7 +57,7 @@ body {
     z-index: 1000;
 }
 
-/* Keyframes for up-and-down animation */
+/* Animation keyframes for up-and-down movement */
 @keyframes moveUpDown {
 
     0%,
@@ -70,7 +70,7 @@ body {
     }
 }
 
-/* Business name and nav placement */
+/* Business name styling in header */
 .header .businessName {
     font-size: 200%;
     font-weight: bold;
@@ -79,13 +79,13 @@ body {
     margin-left: 25px;
 }
 
-/* Make the nav visible on hover */
+/* Show navigation on hover */
 .header:hover .nav,
 .nav:hover {
     display: flex;
 }
 
-/* Initially hide the nav */
+/* Hide navigation initially */
 .nav {
     display: none;
     flex-direction: column;
@@ -98,6 +98,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Navigation item styles */
 .nav a {
     width: 250px;
     text-align: center;
@@ -109,12 +110,13 @@ body {
     transition: background-color 0.2s;
 }
 
+/* Navigation item hover effect */
 .nav a:hover,
 .nav a.active {
     background-color: #ff6347;
 }
 
-/* Style the menu icon */
+/* Menu icon styling */
 #menu-icon {
     font-size: 30px;
     cursor: pointer;
@@ -122,14 +124,45 @@ body {
     transition: transform 0.3s, color 0.3s;
 }
 
+/* Menu icon hover effect */
 #menu-icon:hover {
     transform: scale(1.2);
     color: #ff6347;
 }
 
-/* Show nav when active */
+/* Display navigation when active */
 .nav.active {
     display: flex;
+}
+
+/* Responsive styles for screens smaller than 1920px */
+@media (max-width: 1920px) {
+    .header {
+        font-size: 130%;
+        padding: 5px 15px;
+    }
+
+    .header .businessName {
+        font-size: 180%;
+    }
+
+    .footer {
+        padding: 15px;
+        font-size: 90%;
+    }
+
+    .nav {
+        padding: 5px 0;
+    }
+
+    .nav a {
+        padding: 8px 15px;
+        font-size: 90%;
+    }
+
+    #menu-icon {
+        font-size: 25px;
+    }
 }
 
 /* Home section styles */
@@ -140,14 +173,33 @@ body {
     padding: 40px 20px;
     background-color: #ffebcd;
     flex: auto;
-    min-height: 90vh;
+    min-height: 95vh;
+    flex-wrap: wrap;
 }
 
+/* Home content and image container styles */
 .home-content {
     flex: 1;
     padding-right: 50px;
 }
 
+.home-img {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Home image styling */
+.home-img img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    animation: moveUpDown 2s ease-in-out infinite;
+}
+
+/* Home text styling */
 .home h3 {
     font-size: 35px;
     margin-bottom: 10px;
@@ -158,11 +210,13 @@ body {
     margin-bottom: 20px;
 }
 
+/* Social media icon styles */
 .home .social-media a {
     color: #333;
     font-size: 45px;
     margin-right: 15px;
     text-decoration: none;
+    margin-bottom: 25px;
 }
 
 .social-media a {
@@ -170,41 +224,82 @@ body {
     transition: transform 0.3s, color 0.3s;
 }
 
+/* Social media icon hover effect */
 .social-media a:hover {
     transform: scale(1.2) rotate(360deg);
     color: #ff4500;
 }
 
-.home .home-img img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    animation: moveUpDown 2s ease-in-out infinite;
+/* Responsive styles for smaller screens */
+@media (max-width: 1770px) {
+    .home {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        min-height: auto;
+    }
+
+    .home-img {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .home-content {
+        padding: 0;
+        text-align: center;
+        max-width: 90%;
+    }
+
+    .home h3 {
+        order: -1;
+        font-size: 28px;
+    }
+
+    .home p {
+        font-size: 18px;
+    }
+
+    .home .social-media a {
+        font-size: 30px;
+    }
 }
 
 /* About section styles */
 .about {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 40px 20px;
     background-color: #fff;
     flex: 1;
 }
 
+/* About section image styles */
+.about-img {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 .about-img img {
-    max-width: 350%;
+    max-width: 100%;
     height: auto;
     border-radius: 10px;
     animation: moveUpDown 2s ease-in-out infinite;
 }
 
+/* About content styles */
 .about-content {
-    max-width: 1500px;
-    width: 100%;
-    padding-left: 250px;
-    padding-right: 200px;
+    max-width: 1600px;
+    width: 50%;
+    padding-left: 50px;
+    padding-right: 100px;
 }
 
+/* Heading styles */
 .heading {
     text-align: left;
     font-size: 45px;
@@ -212,19 +307,22 @@ body {
     color: #ff6347;
 }
 
+/* Subheading styles */
 .about-content h3 {
     text-align: left;
-    font-size: 35px;
+    font-size: 30px;
     margin-bottom: 10px;
 }
 
+/* Paragraph styles */
 .about-content p {
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 20px;
 }
 
+/* Button styles */
 .about-content .btn {
-    font-size: 30px;
+    font-size: 25px;
     padding: 10px 20px;
     background-color: #ff6347;
     color: #fff;
@@ -232,11 +330,69 @@ body {
     border-radius: 5px;
     transition: background-color 0.3s, transform 0.3s;
     width: 200px;
+    margin-bottom: 45px;
 }
 
+/* Button hover effect */
 .about-content .btn:hover {
     background-color: #e55337;
     transform: translateY(-10px);
+}
+
+/* Responsive styles for screens smaller than 1920px */
+@media (max-width: 1630px) {
+    .about {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .heading,
+    .about-content h3 {
+        text-align: center;
+        order: -2;
+    }
+
+    .heading {
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
+
+    .about-content h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .about-img {
+        order: 1;
+        margin-bottom: 20px;
+        justify-content: center;
+        max-width: 90%;
+    }
+
+    .about-img img {
+        max-width: 60%;
+        height: auto;
+        display: block;
+    }
+
+    .about-content {
+        padding: 0 10px;
+        max-width: 150%;
+        text-align: center;
+        order: 0;
+    }
+
+    .about-content p {
+        font-size: 18px;
+    }
+
+    .about-content .btn {
+        font-size: 20px;
+        padding: 8px 15px;
+        width: 200px;
+        margin: 0 auto 25px auto;
+    }
 }
 
 /* Products section styles */
@@ -246,12 +402,14 @@ body {
     flex: 1;
 }
 
+/* Product container styles */
 .products-container {
     display: flex;
     gap: 20px;
     justify-content: space-between;
 }
 
+/* Individual product box styles */
 .product-box {
     background-color: #fff;
     padding: 20px;
@@ -269,6 +427,7 @@ body {
     animation: moveUpDown 2s ease-in-out infinite;
 }
 
+/* Product text styling */
 .product-box h3 {
     font-size: 30px;
     margin-bottom: 10px;
@@ -279,6 +438,7 @@ body {
     margin-bottom: 15px;
 }
 
+/* Button styles in product box */
 .product-box .btn {
     padding: 10px 20px;
     background-color: #ff6347;
@@ -289,12 +449,28 @@ body {
     font-size: 30px;
 }
 
+/* Button hover effect in product box */
 .product-box .btn:hover {
     background-color: #e55337;
     transform: translateY(-10px);
 }
 
 /* Gallery section styles */
+.section-title {
+    position: fixed;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    padding: 10px 20px;
+    z-index: 1000;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-weight: 900;
+    font-size: 50px;
+    color: #ff6347;
+}
+
 .gallery {
     padding: 40px 40px;
     background-color: #f4f4f4;
@@ -302,6 +478,7 @@ body {
     margin-top: 10px;
 }
 
+/* Gallery container styling */
 .gallery-container {
     max-width: 1200px;
     margin: auto;
@@ -314,7 +491,7 @@ body {
     align-items: center;
 }
 
-/* 3D Carousel Gallery */
+/* 3D Carousel Gallery styles */
 .gallery_box {
     position: relative;
     width: 100%;
@@ -345,7 +522,7 @@ body {
     transform-style: preserve-3d;
 }
 
-/* Evenly spaced rotateY and consistent translateZ for depth */
+/* Rotate and translate each gallery box element */
 .gallery_box_in:nth-child(1) {
     transform: rotateY(0deg) translateZ(1450px);
 }
@@ -402,6 +579,75 @@ body {
     transform: rotateY(334.23deg) translateZ(1450px);
 }
 
+/* Responsive adjustments for gallery on smaller screens */
+@media (max-width: 2049px) {
+    .gallery_box_outer {
+        width: 380px;
+        height: 380px;
+    }
+
+    .section-title {
+        top: 70px;
+        font-size: 25px;
+    }
+
+    .gallery_box_in {
+        transform: rotateY(0deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(2) {
+        transform: rotateY(25.71deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(3) {
+        transform: rotateY(51.42deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(4) {
+        transform: rotateY(77.13deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(5) {
+        transform: rotateY(102.84deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(6) {
+        transform: rotateY(128.55deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(7) {
+        transform: rotateY(154.26deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(8) {
+        transform: rotateY(179.97deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(9) {
+        transform: rotateY(205.68deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(10) {
+        transform: rotateY(231.39deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(11) {
+        transform: rotateY(257.1deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(12) {
+        transform: rotateY(282.81deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(13) {
+        transform: rotateY(308.52deg) translateZ(900px);
+    }
+
+    .gallery_box_in:nth-child(14) {
+        transform: rotateY(334.23deg) translateZ(900px);
+    }
+}
+
 /* Order section styles */
 .order {
     display: flex;
@@ -412,6 +658,7 @@ body {
     flex: 1;
 }
 
+/* Order container styles */
 .order-container {
     display: flex;
     flex-direction: column;
@@ -421,11 +668,11 @@ body {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    margin-top: -5px;
-    margin-bottom: 10px;
+    margin-top: 60px;
+    margin-bottom: 20px;
 }
 
-/* Info Container for Orders and Cakes */
+/* Info container for order and cakes */
 .info-container {
     display: flex;
     justify-content: space-between;
@@ -439,7 +686,7 @@ body {
     text-align: left;
 }
 
-/* Form and Image side by side */
+/* Form and image layout */
 .form-image-container {
     display: flex;
     align-items: flex-start;
@@ -449,13 +696,13 @@ body {
     margin-top: 0px;
 }
 
-/* Form styling */
+/* Form styles */
 .order-form {
     flex: 1;
     max-width: 45%;
 }
 
-/* Image styling */
+/* Order image styling */
 .order-image {
     flex: 1;
     text-align: center;
@@ -465,18 +712,16 @@ body {
     margin-left: 40px;
 }
 
-/* Image styling */
 .order-image img {
-    width: 110%;
+    width: 80%;
     height: auto;
     max-width: 100%;
     border-radius: 10px;
 }
 
-/* Privacy Policy Section */
+/* Privacy policy section styles */
 .privacy-policy {
-    margin-top: 0px;
-    padding: 20px;
+    padding: 10px;
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -484,14 +729,14 @@ body {
     text-align: center;
 }
 
-/* Heading Styles */
+/* Heading styles for order section */
 .order .heading {
     font-size: 30px;
     color: #333;
     margin-bottom: 20px;
 }
 
-/* Input Box Styles */
+/* Input box container styles */
 .input-box {
     display: flex;
     flex-wrap: wrap;
@@ -499,11 +744,12 @@ body {
     margin-bottom: 20px;
 }
 
+/* Input and textarea styles */
 .input-box input,
 .input-box select,
 textarea {
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 20px;
@@ -511,9 +757,10 @@ textarea {
 
 textarea {
     resize: vertical;
+    height: 150px;
 }
 
-/* Button Styles */
+/* Button styles */
 .btn {
     padding: 15px 20px;
     background-color: #ff6347;
@@ -522,28 +769,45 @@ textarea {
     border-radius: 5px;
     text-align: center;
     display: block;
-    font-size: 30px;
+    font-size: 25px;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
+/* Button hover effect */
 .btn:hover {
     background-color: #e55337;
     transform: translateY(-10px);
 }
 
-/* Info Section Styles */
+/* Small button adjustments */
+.btn.small-btn {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+/* Button group styling within modal */
+.modal-content .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Info section heading styles */
 .order-info-left h3,
 .order-info-right h3 {
-    font-size: 20px;
+    font-size: 22px;
     margin-top: 1px;
     margin-bottom: 1px;
     color: #333;
     margin-left: 30px;
 }
 
+/* List styling */
 .order-info-left ul,
 .order-info-right ul {
     list-style: none;
@@ -552,7 +816,7 @@ textarea {
 
 .order-info-left ul li,
 .order-info-right ul li {
-    font-size: 20px;
+    font-size: 22px;
     margin-bottom: 1px;
     max-width: 85%;
     text-align: justify;
@@ -563,30 +827,38 @@ textarea {
     color: #555;
 }
 
-
-
-/* Slideshow Styles */
+/* Slideshow styles */
 .slides {
     width: 750px;
     height: auto;
     border-radius: 10px;
     margin: auto;
     opacity: 1;
-    transition: opacity .5s ease-in-out;
+    transition: opacity .1s ease-in-out;
     top: 0;
     left: 0;
     display: none;
 }
 
 .slides.fade-out {
-    opacity: 0.3;
+    opacity: 0.1;
 }
 
 .slides.fade-in {
+    transition: ease-in .3s;
     opacity: 1;
 }
 
-/* Blog Section Styles */
+/* Blog section styles */
+.blog-title h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 2.5em;
+    color: #333;
+}
+
 .blog-container {
     padding: 40px 20px;
     background-color: #f4f4f4;
@@ -598,6 +870,7 @@ textarea {
     margin: auto;
 }
 
+/* Individual blog post styles */
 .blog-post {
     display: flex;
     justify-content: space-between;
@@ -613,6 +886,7 @@ textarea {
     padding-right: 20px;
 }
 
+/* Blog post content heading styles */
 .blog-post-content h3 {
     font-size: 30px;
     margin-bottom: 10px;
@@ -625,6 +899,7 @@ textarea {
     color: #999;
 }
 
+/* Blog summary and full content styles */
 .blog-summary {
     max-height: 150px;
     overflow: hidden;
@@ -636,19 +911,21 @@ textarea {
     font-size: 25px;
 }
 
+/* Read more link styles */
 .read-more {
     display: inline-block;
     margin-top: 15px;
     color: #ff6347;
     text-decoration: none;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .read-more:hover {
     text-decoration: underline;
 }
 
-/* The Modal (background) */
+/* Modal background styling */
 .modal {
     display: none;
     position: fixed;
@@ -661,7 +938,7 @@ textarea {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Modal Content */
+/* Modal content styles */
 .modal-content {
     background-color: #fff;
     margin: 15% auto;
@@ -679,7 +956,7 @@ textarea {
     font-size: 25px;
 }
 
-/* Button Group for Yes and No Buttons */
+/* Button group styles in modal */
 .button-group {
     display: flex;
     justify-content: center;
@@ -687,7 +964,7 @@ textarea {
     gap: 20px;
 }
 
-/* Tooltip Styles */
+/* Tooltip styles */
 .tooltip {
     position: absolute;
     top: 50px;
@@ -705,7 +982,7 @@ textarea {
     transition: opacity 0.5s ease-in-out;
 }
 
-/* Tooltip arrow pointing to the menu icon */
+/* Tooltip arrow styling */
 .tooltip::after {
     content: '';
     position: absolute;
@@ -722,7 +999,7 @@ textarea {
     opacity: 1;
 }
 
-/* CSS for Image Fade Effect */
+/* CSS for fade effects on images */
 .fade-out {
     opacity: 0.1;
     transition: opacity 0.2s ease-out;

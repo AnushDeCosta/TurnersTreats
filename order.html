@@ -60,9 +60,29 @@
               <div class="input-box">
                 <select id="product-select" name="product" required>
                   <option value="select">Select Item from List</option>
-                  <option value="birthday-cake">Custom Birthday Cake</option>
-                  <option value="wedding-cake">Elegant Wedding Cake</option>
-                  <option value="pastry">Artisanal Pastry</option>
+                  <!-- Cakes -->
+                  <option value="chocolate-cake">Chocolate Cake</option>
+                  <option value="vanilla-cake">Vanilla Cake</option>
+                  <option value="red-velvet-cake">Red Velvet Cake</option>
+                  <option value="lemon-cake">Lemon Cake</option>
+                  <option value="farm">Farm Themed Birthday Cake</option>
+                  <option value="seal">Fruit "Seal" Birthday Cake</option>
+                  <option value="dino1">Dino Themed Birthday Cake</option>
+                  <option value="dog">"Is it Cake?" Birthday Cake</option>
+                  <option value="tiered-cake1">Elegant Tiered Wedding Cake</option>
+                  <option value="tiered-cake2">Majestic Tiered Wedding Cake</option>
+                  <option value="tiered-cake3">Minimal Tiered Wedding Cake</option>
+                  <option value="naked-cake">Naked Wedding Cake</option>
+                  <!-- Pastries -->
+                  <option value="croissant">Croissant</option>
+                  <option value="danish">Danish Pastry</option>
+                  <option value="eclair">Eclair</option>
+                  <option value="tart">Fruit Tart</option>
+                  <!-- Bread -->
+                  <option value="baguette">Baguette</option>
+                  <option value="sourdough">Sourdough</option>
+                  <option value="rye">Rye Bread</option>
+                  <option value="multigrain">Multigrain Bread</option>
                   <option value="bread">Fresh Bread</option>
                 </select>
                 <input type="number" placeholder="Quantity" min="0" required>
@@ -72,9 +92,10 @@
             </form>
           </div>
 
-          <!-- Image Section -->
+          <!-- Image and Price Section -->
           <div class="order-image">
             <img id="product-image" src="images/orders.jpg" alt="Order Image">
+            <p id="product-price" class="product-price"></p> <!-- Placeholder for product price -->
           </div>
         </div>
 
@@ -86,35 +107,53 @@
             We will never sell or give out any information you provide us to anyone. 
             Payments are processed through the secure and encrypted Stripe system. 
             We do not have access to or hold your credit card details.
-        </p>
+          </p>
         </div>
-      </div>
+      </div> <!-- Closing div for order-container -->
     </section>
 
     <!-- Modal for Auto-fill Confirmation -->
-    <div id="autoFillModal" class="modal">
-        <div class="modal-content">
-            <h3>Note for Teaching Team.</h3>
-            <p>This is temporary!</p>
-            <br>
-            <p>
-            For your ease, would you like to auto-fill the form with "pre-filled"
-            details?
-            </p>
-            <div class="button-group">
-            <button id="confirmAutoFill" class="btn">Yes</button>
-            <button id="cancelAutoFill" class="btn">No</button>
-            </div>
+    <div id="autoFillModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h3>Note for Teaching Team.</h3>
+        <p>This is temporary!</p>
+        <p>
+          For your ease, would you like to auto-fill the form with "pre-filled"
+          details?
+        </p>
+        <div class="button-group">
+          <button id="confirmAutoFill" class="btn">Yes</button>
+          <button id="cancelAutoFill" class="btn">No</button>
         </div>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <p>Are you sure you want to submit this order?</p>
+        <div class="button-group">
+          <button id="confirmOrder" class="btn small-btn">Confirm Order</button>
+          <button id="cancelOrder" class="btn small-btn">Cancel Order</button>
         </div>
-    
-        <!-- Confirmation Modal -->
-        <div id="confirmationModal" class="modal">
-        <div class="modal-content">
-            <p>Order has been successfully submitted! Thank you.</p>
-            <button id="closeConfirmation" class="btn">OK</button>
-        </div>
-        </div>
+      </div>
+    </div>
+
+    <!-- Order Submitted Modal -->
+    <div id="orderSubmittedModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <p><strong>Order submitted!</strong> <br>The bakery will contact you soon to confirm specifics.</p>
+        <button id="closeOrderSubmitted" class="btn small-btn">OK</button>
+      </div>
+    </div>
+
+    <!-- Update Order Modal -->
+    <div id="updateOrderModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <p>You can update your order before submitting.</p>
+        <button id="closeUpdateOrder" class="btn small-btn">OK</button>
+      </div>
+    </div>
 
     <footer class="footer">
       <div class="footer-text">

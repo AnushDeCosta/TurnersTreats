@@ -1,9 +1,18 @@
-// Order Form Validation and Submission
+// DOMContentLoaded event to initialize scripts after the document is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
-    const orderForm = document.querySelector('form[action="#"]');
 
+    // Select necessary elements from the DOM for form handling and modal control
+    const orderForm = document.querySelector('form[action="#"]');
+    const confirmationModal = document.getElementById("confirmationModal");
+    const orderSubmittedModal = document.getElementById("orderSubmittedModal");
+    const updateOrderModal = document.getElementById("updateOrderModal");
+    const productPriceDisplay = document.getElementById('product-price');
+
+    // Form submission handler with validation checks
     if (orderForm) {
         orderForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
             const fullName = orderForm.querySelector('input[placeholder="Full Name"]');
             const email = orderForm.querySelector('input[placeholder="Email Address"]');
             const quantity = orderForm.querySelector('input[placeholder="Quantity"]');
@@ -31,110 +40,132 @@ document.addEventListener('DOMContentLoaded', function () {
                 errorMessage += 'Quantity must be greater than zero.\n';
             }
 
-            // Show error messages if validation fails
+            // Show error messages or display confirmation modal
             if (!isValid) {
-                e.preventDefault();
                 alert(errorMessage);
             } else {
-                e.preventDefault(); // Prevent default form submission
-
-                // Create an order object
-                const order = {
-                    fullName: fullName.value.trim(),
-                    email: email.value.trim(),
-                    product: product.value,
-                    quantity: quantity.value,
-                    message: message.value.trim()
-                };
-
-                // Save the order to localStorage
-                let orders = JSON.parse(localStorage.getItem('orders')) || [];
-                orders.push(order);
-                localStorage.setItem('orders', JSON.stringify(orders));
-
-                // Display the custom confirmation modal
-                const confirmationModal = document.getElementById("confirmationModal");
                 confirmationModal.style.display = "block";
-
-                // Reset the form
-                orderForm.reset();
             }
         });
     }
 
-    // Email Validation Function
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
+    // Confirm or cancel order through modal buttons
+    const confirmOrderBtn = document.getElementById("confirmOrder");
+    const cancelOrderBtn = document.getElementById("cancelOrder");
+
+    if (confirmOrderBtn) {
+        confirmOrderBtn.addEventListener('click', function () {
+            const order = {
+                fullName: orderForm.querySelector('input[placeholder="Full Name"]').value.trim(),
+                email: orderForm.querySelector('input[placeholder="Email Address"]').value.trim(),
+                product: orderForm.querySelector('select[name="product"]').value,
+                quantity: orderForm.querySelector('input[placeholder="Quantity"]').value,
+                message: orderForm.querySelector('textarea[name="message"]').value.trim()
+            };
+
+            // Save order to localStorage and reset form
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            orderSubmittedModal.style.display = "block";
+            confirmationModal.style.display = "none";
+            orderForm.reset();
+        });
     }
 
-    // Close the confirmation modal when "OK" is clicked
-    const closeConfirmation = document.getElementById("closeConfirmation");
-    if (closeConfirmation) {
-        closeConfirmation.addEventListener('click', function () {
-            const confirmationModal = document.getElementById("confirmationModal");
+    if (cancelOrderBtn) {
+        cancelOrderBtn.addEventListener('click', function () {
             confirmationModal.style.display = "none";
+            updateOrderModal.style.display = "block";
+        });
+    }
 
-            // Prompt the user to view the Order Sheet
+    // Close modals and prompt user to view the Ordersheet
+    const closeOrderSubmittedBtn = document.getElementById("closeOrderSubmitted");
+    const closeUpdateOrderBtn = document.getElementById("closeUpdateOrder");
+
+    if (closeOrderSubmittedBtn) {
+        closeOrderSubmittedBtn.addEventListener('click', function () {
+            orderSubmittedModal.style.display = "none";
             setTimeout(() => {
-                if (confirm("Order has been successfully submitted! Would you like to view the Order Sheet?")) {
+                if (confirm("NOTE to Teaching Team:\nThe absence of a Cart is an intentional Feature, not a Bug.\nMore details are in the report.\nWould you like to view the Order sheet?")) {
                     window.open('ordersheet.html', '_blank');
                 }
             }, 100);
         });
     }
 
-    // Image change functionality based on product selection
+    if (closeUpdateOrderBtn) {
+        closeUpdateOrderBtn.addEventListener('click', function () {
+            updateOrderModal.style.display = "none";
+        });
+    }
+
+    // Function to validate email format
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Functionality to change image and price display based on product selection
     const productSelect = document.getElementById('product-select');
     const productImage = document.getElementById('product-image');
 
-    // Object mapping product values to image sources and alt text
-    const productImages = {
-        'select': { src: 'images/orders.jpg', alt: 'Custom Birthday Cake' },
-        'birthday-cake': { src: 'images/Cake_Birthday3.png', alt: 'Custom Birthday Cake' },
-        'wedding-cake': { src: 'images/Cake_Wedding1.png', alt: 'Elegant Wedding Cake' },
-        'pastry': { src: 'images/Pastry_2.png', alt: 'Artisanal Pastry' },
-        'bread': { src: 'images/Bread_3.png', alt: 'Fresh Bread' }
+    const productDetails = {
+        // Object mapping product values to image sources, alt text, and prices
+        'select': { src: 'images/orders.jpg', alt: 'Custom Order', price: '$--' },
+        'chocolate-cake': { src: 'images/Cakes/Chocolate.png', alt: 'Chocolate Cake', price: '$80.00 each' },
+        'vanilla-cake': { src: 'images/Cakes/Vanilla.png', alt: 'Vanilla Cake', price: '$80.00 each' },
+        'red-velvet-cake': { src: 'images/Cakes/Velvet.png', alt: 'Red Velvet Cake', price: '$120.00 each' },
+        'lemon-cake': { src: 'images/Cakes/Lemon.png', alt: 'Lemon Cake', price: '$70.00 each' },
+        'farm': { src: 'images/Cakes/Birthday1.png', alt: 'Birthday Cake 1', price: '$100.00 each' },
+        'seal': { src: 'images/Cakes/Birthday2.png', alt: 'Birthday Cake 2', price: '$150.00 each' },
+        'dino1': { src: 'images/Cakes/Birthday3.png', alt: 'Birthday Cake 3', price: '$180.00 each' },
+        'dog': { src: 'images/Cakes/Birthday4.png', alt: 'Birthday Cake 4', price: '$280.00 each' },
+        'tiered-cake1': { src: 'images/Cakes/Tiered3.png', alt: 'Tiered Cake 1', price: '$250.00 each' },
+        'tiered-cake2': { src: 'images/Cakes/Tiered2.png', alt: 'Tiered Cake 2', price: '$185.00 each' },
+        'tiered-cake3': { src: 'images/Cakes/Tiered1.png', alt: 'Tiered Cake 2', price: '$385.00 each' },
+        'naked-cake': { src: 'images/Cakes/Naked.png', alt: 'Naked Cake', price: '$180.00 each' },
+        'croissant': { src: 'images/Pastries/Croissant.png', alt: 'Croissant', price: '$6.00 each' },
+        'danish': { src: 'images/Pastries/Danish.png', alt: 'Danish Pastry', price: '$6.50 each' },
+        'eclair': { src: 'images/Pastries/Eclair.png', alt: 'Eclair', price: '$6.00 each' },
+        'tart': { src: 'images/Pastries/Tarts.png', alt: 'Fruit Tart', price: '$6.50 each' },
+        'baguette': { src: 'images/Bread/Baguette.png', alt: 'Baguette', price: '$5.50 each' },
+        'sourdough': { src: 'images/Bread/Sourdough.png', alt: 'Sourdough', price: '$6.50 each' },
+        'rye': { src: 'images/Bread/Rye.png', alt: 'Rye Bread', price: '$5.50 each' },
+        'multigrain': { src: 'images/Bread/Multigrain.png', alt: 'Multigrain Bread', price: '$4.50 each' },
     };
 
-    // Function to update the image with a fade effect
-    function updateImage() {
+    // Update image and price with fade effect
+    function updateImageAndPrice() {
         const selectedProduct = productSelect.value;
-
-        // Apply fade-out effect
         productImage.classList.add('fade-out');
 
-        // Wait for the fade-out to complete before changing the image
         setTimeout(() => {
-            if (productImages[selectedProduct]) {
-                productImage.src = productImages[selectedProduct].src;
-                productImage.alt = productImages[selectedProduct].alt;
+            if (productDetails[selectedProduct]) {
+                productImage.src = productDetails[selectedProduct].src;
+                productImage.alt = productDetails[selectedProduct].alt;
+                productPriceDisplay.textContent = `Price: ${productDetails[selectedProduct].price}`;
             } else {
-                // Default image if no valid product is selected
-                productImage.src = 'images/default.jpg';
+                productImage.src = 'images/orders.jpg';
                 productImage.alt = 'Order Image';
+                productPriceDisplay.textContent = '';
             }
-
-            // Apply fade-in effect after the image source changes
             productImage.classList.remove('fade-out');
             productImage.classList.add('fade-in');
-
-            // Remove fade-in class after animation completes
             setTimeout(() => {
                 productImage.classList.remove('fade-in');
-            }, 500); // Duration should match the CSS animation time
-
-        }, 500); // Duration of the fade-out effect in milliseconds
+            }, 500);
+        }, 500);
     }
 
-    // Event listener for dropdown menu change
-    productSelect.addEventListener('change', updateImage);
+    // Add event listener to update image and price on product selection change
+    productSelect.addEventListener('change', updateImageAndPrice);
+    updateImageAndPrice();  // Initialize with the default selection
 
-    // Ensure initial image state reflects the current selection
-    updateImage();
 });
 
-// Slideshow functionality
+// Slideshow initialization and functionality
 document.addEventListener('DOMContentLoaded', function () {
     const slideshows = document.querySelectorAll('.slideshow-container');
 
@@ -142,46 +173,39 @@ document.addEventListener('DOMContentLoaded', function () {
         let slides = slideshow.getElementsByClassName('slides');
         let currentSlide = 0;
 
-        // Initialize: Show the first slide
         slides[currentSlide].classList.add('fade-in');
         slides[currentSlide].style.display = 'block';
 
-        // Different timing for each slideshow
         let timing = 2500 + (index * 500);
 
         // Function to show the next slide
         function showNextSlide() {
-            // Fade out the current slide
             slides[currentSlide].classList.remove('fade-in');
             slides[currentSlide].classList.add('fade-out');
 
             setTimeout(() => {
-                // Hide the current slide
                 slides[currentSlide].style.display = 'none';
                 slides[currentSlide].classList.remove('fade-out');
 
-                // Move to the next slide
                 currentSlide = (currentSlide + 1) % slides.length;
 
-                // Show and fade in the next slide
                 slides[currentSlide].style.display = 'block';
                 slides[currentSlide].classList.add('fade-in');
-            }, 500); // Adjust the delay for the fade transition
+            }, 500);
         }
 
-        // Set interval to rotate slides with staggered timing
         setInterval(showNextSlide, timing);
     });
 });
 
-// Navigation Menu Toggle
+// Navigation menu toggle for mobile view
 document.addEventListener('DOMContentLoaded', function () {
     const menuIcon = document.getElementById('menu-icon');
     const nav = document.querySelector('.nav');
 
     menuIcon.addEventListener('click', function (e) {
         nav.classList.toggle('active');
-        e.stopPropagation(); // Prevent click event from bubbling up
+        e.stopPropagation();
     });
 
     document.addEventListener('click', function (e) {
@@ -195,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Blog Post Expand
+// Expand and collapse blog post content
 document.addEventListener('DOMContentLoaded', function () {
     const readMoreButtons = document.querySelectorAll('.read-more');
 
@@ -214,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Auto-Fill Functionality
+// Auto-fill form functionality and modal control
 document.addEventListener('DOMContentLoaded', function () {
     const orderForm = document.querySelector('form[action="#"]');
     const fullNameField = orderForm.querySelector('input[placeholder="Full Name"]');
@@ -224,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let autoFillPromptShown = false;
 
-    // Function to generate random Australian-like phone number
+    // Generate random Australian-like phone number
     function getRandomPhoneNumber() {
         const prefix = ["041", "042", "043", "044"];
         const randomPrefix = prefix[Math.floor(Math.random() * prefix.length)];
@@ -232,12 +256,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return `${randomPrefix}${randomNumber}`;
     }
 
-    // Random data generator function with Latin paragraphs
+    // Generate random data for form auto-fill
     function getRandomData() {
         const names = ['John Doe', 'Jane Smith', 'Alex Johnson'];
         const emails = ['john@example.com', 'jane@example.com', 'alex@example.com'];
-        const products = ['birthday-cake', 'wedding-cake', 'pastry', 'bread'];
-        const quantities = [1, 2, 3];
+        const products = ['chocolate-cake', 'vanilla-cake', 'red-velvet-cake', 'lemon-cake', 'farm', 'seal', 'dino1', 'dog', 'tiered-cake1', 'tiered-cake2', 'naked-cake', 'croissant', 'danish', 'eclair', 'tart', 'baguette', 'sourdough', 'rye', 'multigrain'];
+        const quantities = [1, 2, 3, 6];
         const phoneNumber = getRandomPhoneNumber();
         const message = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
@@ -251,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     }
 
-    // Show the modal when Full Name field is focused for the first time
+    // Display modal for auto-fill confirmation
     fullNameField.addEventListener('focus', function () {
         if (!autoFillPromptShown) {
             modal.style.display = "block";
@@ -259,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // When the user clicks on the "Yes" button, auto-fill the form
+    // Confirm auto-fill and populate the form with random data
     confirmBtn.addEventListener('click', function () {
         const randomData = getRandomData();
         orderForm.querySelector('input[placeholder="Full Name"]').value = randomData.name;
@@ -270,19 +294,17 @@ document.addEventListener('DOMContentLoaded', function () {
         orderForm.querySelector('input[placeholder="Quantity"]').value = randomData.quantity;
         orderForm.querySelector('textarea[name="message"]').value = randomData.message;
 
-        // Manually trigger change event to update the image
         const event = new Event('change');
         productDropdown.dispatchEvent(event);
-
         modal.style.display = "none";
     });
 
-    // When the user clicks on the "No" button, close the modal
+    // Cancel auto-fill and close the modal
     cancelBtn.addEventListener('click', function () {
         modal.style.display = "none";
     });
 
-    // Close the modal when clicking outside of it
+    // Close the modal when clicking outside
     window.addEventListener('click', function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
@@ -290,33 +312,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Tooltip for Menu Icon
+// Tooltip for Menu Icon functionality
 document.addEventListener('DOMContentLoaded', function () {
     const tooltip = document.getElementById('menuTooltip');
     const menuIcon = document.getElementById('menu-icon');
 
-    // Check if the tooltip should be shown on page load
+    // Show tooltip if not dismissed
     const shouldShowTooltip = !sessionStorage.getItem('menuTooltipDismissed');
     if (shouldShowTooltip) {
-        // Position the tooltip near the menu icon
         const rect = menuIcon.getBoundingClientRect();
         tooltip.style.top = `${rect.bottom + 12}px`;
         tooltip.style.left = `${rect.left}px`;
 
-        // Show the tooltip
         tooltip.classList.add('show');
 
-        // Function to hide the tooltip
         const dismissTooltip = () => {
             tooltip.classList.remove('show');
             sessionStorage.setItem('menuTooltipDismissed', 'true');
         };
 
-        // Hide the tooltip when the user clicks or hovers over the menu icon
         menuIcon.addEventListener('click', dismissTooltip);
         menuIcon.addEventListener('mouseover', dismissTooltip);
 
-        // Hide the tooltip after 10 seconds if no interaction
         setTimeout(function () {
             if (tooltip.classList.contains('show')) {
                 dismissTooltip();
@@ -324,7 +341,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 4000);
     }
 
-    // Clear the dismissal status on page load so that the tooltip shows again on refresh
     sessionStorage.removeItem('menuTooltipDismissed');
 });
 
@@ -348,39 +364,32 @@ document.addEventListener('DOMContentLoaded', function () {
                     const rotation = progress * 360 * 5;
                     gsap.set(galleryBoxOuter, { rotateY: rotation });
 
-                    // Variable to track the image closest to the center front
+                    // Calculate the closest image to the front-center
                     let closestImageIndex = -1;
-                    let closestDistance = 360; // Max possible distance
+                    let closestDistance = 360;
 
                     images.forEach((image, index) => {
                         const normalizedRotation = (index * 25.71 + rotation) % 360;
-
-                        // Calculate the distance from the front-center (180 degrees)
                         const distanceFromFront = Math.abs(normalizedRotation - 180);
 
-                        // Track the closest image to the front-center
                         if (distanceFromFront < closestDistance) {
                             closestDistance = distanceFromFront;
                             closestImageIndex = index;
                         }
 
-                        // Determine opacity based on distance from the front
                         let opacity;
-                        let scale; // Variable to adjust scale
-
                         if (distanceFromFront < 20) {
-                            opacity = 1;  // Full opacity for the center front image
+                            opacity = 1;
                         } else if (distanceFromFront < 60) {
-                            opacity = 0.8;  // 80% opacity for images close to the front
+                            opacity = 0.8;
                         } else {
-                            opacity = Math.max(0.05, 1 - (distanceFromFront / 180));  // Gradually fade for the rest
+                            opacity = Math.max(0.05, 1 - (distanceFromFront / 180));
                         }
 
                         image.style.opacity = opacity;
                         image.style.transform = `rotateY(${index * 25.71}deg) translateZ(1450px) scale(1)`;
                     });
 
-                    // Apply scaling to the closest image to the front-center
                     if (closestImageIndex !== -1) {
                         images[closestImageIndex].style.transform = `rotateY(${closestImageIndex * 25.71}deg) translateZ(1450px) scale(1.5)`;
                     }
